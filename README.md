@@ -38,10 +38,15 @@ ROS 기반 자율주행 시스템과 Node.js / React 기반 웹 시스템을 연
 ## 🏗️ Architecture
 <img width="1137" height="953" alt="image" src="https://github.com/user-attachments/assets/6f1fd2d1-341c-489d-85de-14a0533f9cc2" />
 
-```plantuml
-@startuml
-UGV --> Server : UDP
-Server --> GCS : WebSocket
-GCS --> Server : REST API
-@enduml
+flowchart TD
+    A[GPS / IMU / LiDAR<br/>Camera] -->|UDP / TCP| B[Node.js Server]
+
+    B --> B1[UDP Parser]
+    B --> B2[WebSocket Bridge]
+    B --> B3[REST API]
+
+    B --> C[React Web GCS]
+    C --> C1[Dashboard UI]
+    C --> C2[Video Stream]
+    C --> C3[Control Panel]
 
