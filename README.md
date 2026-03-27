@@ -26,7 +26,7 @@ ROS 기반 자율주행 시스템과 Node.js / React 기반 웹 시스템을 연
 - 브라우저 실시간 렌더링
 
 ### 🎮 Remote Control
-- TCP/UDP 기반 제어 명령 전송
+- UDP 기반 제어 명령 전송
 - AUTO / MANUAL 모드 지원
 
 ### 🤖 Multi-UGV Management
