@@ -36,3 +36,12 @@ ROS 기반 자율주행 시스템과 Node.js / React 기반 웹 시스템을 연
 ---
 
 ## 🏗️ Architecture
+<img width="1137" height="953" alt="image" src="https://github.com/user-attachments/assets/6f1fd2d1-341c-489d-85de-14a0533f9cc2" />
+
+```plantuml
+@startuml
+UGV --> Server : UDP
+Server --> GCS : WebSocket
+GCS --> Server : REST API
+@enduml
+
