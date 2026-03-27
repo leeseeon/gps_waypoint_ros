@@ -35,18 +35,41 @@ ROS 기반 자율주행 시스템과 Node.js / React 기반 웹 시스템을 연
 
 ---
 
-## 🏗️ Architecture
-<img width="1137" height="953" alt="image" src="https://github.com/user-attachments/assets/6f1fd2d1-341c-489d-85de-14a0533f9cc2" />
 
+## 🏗️ Architecture (UGV ---> Web_DashBorad)
+
+```mermaid
 flowchart TD
-    A[GPS / IMU / LiDAR<br/>Camera] -->|UDP / TCP| B[Node.js Server]
 
-    B --> B1[UDP Parser]
-    B --> B2[WebSocket Bridge]
-    B --> B3[REST API]
+A[GPS / IMU / LiDAR / Camera]
 
-    B --> C[React Web GCS]
-    C --> C1[Dashboard UI]
-    C --> C2[Video Stream]
-    C --> C3[Control Panel]
+B[Node.js Server]
 
+B1[UDP Parser #4000]
+B2[WebSocket Bridge 8088]
+B3[REST API 3001]
+
+C[React Web GCS]
+
+C1[Dashboard UI]
+C2[Video Stream]
+C3[Control Panel]
+
+A -->|UDP 5001-5004| B
+
+B --> B1
+B --> B2
+B --> B3
+B --> C
+
+C --> C1
+C --> C2
+C --> C3
+
+```
+---
+
+## 개발환경
+- Ros1 mellodic
+- Python
+- React , Node.js
