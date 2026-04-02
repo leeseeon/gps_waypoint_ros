@@ -73,3 +73,101 @@ C --> C3
 - Ros1 mellodic
 - Python
 - React , Node.js
+
+---
+
+## UI 수정
+
+- Total_page 수정
+- Operation_page 수정 
+---
+
+<img width="1916" height="1038" alt="스크린샷 2026-04-02 163509" src="https://github.com/user-attachments/assets/a55c45e5-d04f-4f28-927b-a0a3958d3b2c" />
+<img width="1919" height="1036" alt="스크린샷 2026-04-02 163744" src="https://github.com/user-attachments/assets/aabe7928-b44d-4810-b6d3-5841febee041" />
+
+- Total_page 개선사항 
+
+---
+
+<img width="1917" height="1038" alt="스크린샷 2026-04-02 163430" src="https://github.com/user-attachments/assets/e19f48ce-99a9-4994-ba14-14c8d5f5bff7" />
+
+
+---
+
+## 🚗 Autonomous Navigation
+
+사용자는 Total Page 우측의 Google Map UI에서 목표 지점을 직관적으로 선택할 수 있으며,  
+선택된 좌표는 속도 파라미터와 함께 UGV로 전송됩니다.  
+
+- 📍 Map Click → 목표 좌표 설정  
+- ⚙️ Speed Control → 주행 속도 설정  
+- 📡 Command Transmission → UGV로 실시간 전송  
+
+이를 통해 사용자는 별도의 복잡한 입력 없이  
+직관적인 인터페이스 기반으로 자율 주행을 제어할 수 있습니다.
+
+## 🏗️ Architecture (Web_DashBorad ---> UGV)
+
+```mermaid
+graph TD
+
+%% =========================
+%% Frontend
+%% =========================
+subgraph Frontend
+A["User Click (Google Map)"]
+B[MapView UI]
+C[Waypoint + Speed]
+end
+
+%% =========================
+%% Command Layer
+%% =========================
+subgraph Command_Flow
+D[Binary Packet #13002 / #13003]
+E[WebSocket Command]
+end
+
+%% =========================
+%% Backend
+%% =========================
+subgraph Backend
+F[Node.js Server]
+G[UDP Command Port 15002]
+end
+
+%% =========================
+%% UGV
+%% =========================
+subgraph UGV
+H[Autonomous Control]
+I[Sensor Data GPS IMU Camera]
+end
+
+%% =========================
+%% Telemetry
+%% =========================
+subgraph Telemetry
+J[UDP Telemetry 5001~5004]
+K[WebSocket Stream 8088]
+end
+
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+
+F --> G
+G --> H
+
+H --> I
+I --> J
+J --> F
+
+F --> K
+K --> B
+
+```
+---
+
